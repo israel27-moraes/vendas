@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Fundo claro */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #343a40; /* Texto escuro */
+        }
+        .search-bar {
+            width: 80%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .image-container {
+            width: 350px; /* Tamanho ajustado do quadrado */
+            height: 250px; /* Tamanho ajustado do quadrado */
+            overflow: hidden; /* Garantir que a imagem se ajuste ao contêiner */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center; /* Centralizar a imagem */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajustar a imagem ao contêiner */
+        }
+        .image-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .image-container::after {
+            content: attr(data-number);
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        h2 {
+            color: #007bff; /* Cor de destaque */
+        }
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745; /* Cor do preço */
+        }
+    </style>
+    <title>Imagem com Descrição</title>
+</head>
+<body>
+    <div class="search-bar">
+        <input type="text" id="searchInput" onkeyup="filterImages()" placeholder="Digite o código do produto...">
+    </div>
+
+    <div class="gallery">
+        <div class="image-container" data-number="1" data-code="001" onclick="document.getElementById('imageModal1').style.display='block'">
+            <img src="https://th.bing.com/th/id/OIP.KwBM11rFNnA4KEsu5zvmpAHaEK?w=290&h=180&c=7&r=0&o=5&pid=1.7" alt="Pôr-do-sol Deslumbrante">
+        </div>
+        
+        <!-- Modal -->
+        <div id="imageModal1" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('imageModal1').style.display='none'">&times;</span>
+                <h2>Pôr-do-sol Deslumbrante</h2>
+                <p>Uma bela paisagem natural com um pôr-do-sol deslumbrante sobre uma montanha. Ideal para decorar salas, escritórios e ambientes de relaxamento.</p>
+                <p class="price">Preço: R$ 1.500,00</p>
+            </div>
+        </div>
+
+        <div class="image-container" data-number="2" data-code="002" onclick="document.getElementById('imageModal2').style.display='block'">
+            <img src="https://th.bing.com/th/id/R.d3b58c70461a9e9cb178fd8dcb61665f?rik=W603rTmnpHGFhw&pid=ImgRaw&r=0" alt="Carrinho de Bebê Moisés">
+        </div>
+        <div id="imageModal2" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('imageModal2').style.display='none'">&times;</span>
+                <h2>Carrinho de Bebê Moisés</h2>
+                <p>Carrinho de bebê Moisés, com quatro rodas, na cor cinza claro. Ideal para recém-nascidos, oferece conforto e segurança. Estado novo e pronto para uso imediato.</p>
+                <p class="price">Preço: R$ 1.851,00</p>
+            </div>
+        </div>
+
+        <div class="image-container" data-number="3" data-code="003" onclick="document.getElementById('imageModal3').style.display='block'">
+            <img src="https://th.bing.com/th/id/R.6a3b9397bd16e485a5f8ecfbe36a79d0?rik=XMc%2fcjw4xq%2fWrw&pid=ImgRaw&r=0" alt="Carrinho de Bebê Três Rodas">
+        </div>
+        <div id="imageModal3" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('imageModal3').style.display='none'">&times;</span>
+                <h2>Carrinho de Bebê Três Rodas</h2>
+                <p>Carrinho de bebê Moisés, com três rodas, em estado de novo. Excelente para passeios, fácil de manobrar e muito confortável para o bebê.</p>
+                <p class="price">Preço: R$ 1.750,00</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fechar o modal ao clicar fora dele -->
+    <script>
+        window.onclick = function(event) {
+            var modals = document.getElementsByClassName('modal');
+            for (var i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        }
+
+        function filterImages() {
+            var input = document.getElementById('searchInput');
+            var filter = input.value.toUpperCase();
+            var containers = document.getElementsByClassName('image-container');
+
+            for (var i = 0; i < containers.length; i++) {
+                var code = containers[i].getAttribute('data-code');
+                if (code.toUpperCase().indexOf(filter) > -1) {
+                    containers[i].style.display = "";
+                } else {
+                    containers[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
